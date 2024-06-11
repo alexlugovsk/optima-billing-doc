@@ -1,0 +1,13 @@
+.. Billing documentation master file, created by
+   sphinx-quickstart on Wed May 15 13:00:31 2024.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Добро пожаловать в документацию по биллингу!
+============================================
+
+.. toctree::
+   work-schema
+   tarification
+   admin-panel
+   api

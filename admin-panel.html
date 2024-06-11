@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Панель администратора &mdash; документация Billing 15.05.2024</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=e1d48a06"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=29b1f277"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="next" title="HTTP API" href="api.html" />
+    <link rel="prev" title="Система тарификации" href="tarification.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Billing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Поиск в документации" aria-label="Поиск в документации" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Меню навигации">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="work-schema.html">Принципы работы системы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tarification.html">Система тарификации</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Панель администратора</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Описания полей</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Биллинг</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Клиенты</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Изменение баланса</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#telegram">Привязка к telegram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">Отчёт по объёму потребленных услуг</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">Создание актов</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">История операций</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">Экспорт истории операций</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Устройства</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Допуслуги</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Подкл. допуслуги</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Тарифы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Группы Тарифов</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Настройки</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Акты</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Наши реквизиты</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id18">Создание объектов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id19">Редактирование объектов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id20">Удаление объектов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id21">Пользователи и Группы</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id22">Описание прав доступа</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">Пользователи</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id25">Пояснения по правам пользователя в биллинге</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#api-key-permissions-api-keys">API KEY PERMISSIONS -&gt; API Keys</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">HTTP API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Меню навигации для мобильных устройств" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Billing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Навигация по страницам">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Панель администратора</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/admin-panel.rst.txt" rel="nofollow"> Просмотреть исходный код страницы</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>Панель администратора<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<section id="id2">
+<h2>Описания полей<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>Описания всех полей объектов системы можно посмотреть во внутренней документации,
+которая интегрирована непосредственно в админ-панель.</p>
+<ol class="arabic simple">
+<li><p>Перейдите по ссылке «Документация», находящейся в правом верхнем углу:</p></li>
+</ol>
+<img alt="_images/scrin31.png" src="_images/scrin31.png" />
+<ol class="arabic simple" start="2">
+<li><p>Перейдите в раздел «Модели».</p></li>
+</ol>
+<img alt="_images/scrin32.png" src="_images/scrin32.png" />
+<ol class="arabic simple" start="3">
+<li><p>Выбирите интересующую вас модель.</p></li>
+</ol>
+<img alt="_images/scrin33.png" src="_images/scrin33.png" />
+<p>4. Убедитесь, что это именно тот тип объектов, который вы искали, посмотрев на описание страницы,
+которое обычно соответствует пути до объектов этого типа в главном меню (либо не соответствует, в случае если это
+скрытый/системный тип объекта, не предназначенный для администратора системы и не отображающийся в левом меню).</p>
+<img alt="_images/scrin34.png" src="_images/scrin34.png" />
+</section>
+<section id="id3">
+<h2>Биллинг<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<section id="id4">
+<h3>Клиенты<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>Этот раздел содержит информацию о пользователях сервиса.
+Подробное описание всех полей этого объекта доступно в панели администратора
+по пути:</p>
+<blockquote>
+<div><p>Главная › Документация › Модели › billing.Client</p>
+</div></blockquote>
+<section id="id5">
+<h4>Изменение баланса<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
+<p>Рассмотрим конкретный сценарий. Вам нужно внести на лицевой счёт пользователя деньги, которые тот заплатил наличными в вашем офисе.
+Оператор заходит в админ-панель биллинга, затем кликает на пункт «Клиенты» в левом меню (см.скрин).</p>
+<img alt="_images/scrin1.png" src="_images/scrin1.png" />
+<p>Перед оператором появится список клиентов.</p>
+<img alt="_images/scrin2.png" src="_images/scrin2.png" />
+<p>Запросите у Клиента название организации/номер телефона/почту или какие-нибудь другие параметры для идентификации.
+Воспользуйтесь блоком фильтров справа или поиском сверху для того чтобы найти необходимого клиента. В нашем примере мы вобьём номер телефона
+в строку поиска и найдём необходимого клиента:</p>
+<img alt="_images/scrin3.png" src="_images/scrin3.png" />
+<p>Проставьте галочку рядом с нужным клиентом, затем из выпадающего списка действий выберите «изменить баланс» и нажмите кнопку «выполнить».</p>
+<img alt="_images/scrin4.png" src="_images/scrin4.png" />
+<p>Далее вы провалитесь на страницу с формой. Заполните необходимые поля следуя их описаниям и нажмите кнопку «сохранить».</p>
+<img alt="_images/scrin5.png" src="_images/scrin5.png" />
+<p>После этого баланс будет изменён, клиенту поступит оповещение в телеграм, если он его привязывал к системе.</p>
+</section>
+<section id="telegram">
+<h4>Привязка к telegram<a class="headerlink" href="#telegram" title="Link to this heading"></a></h4>
+<p>При создании клиента в поле bot_verify_link формируется уникальная ссылка, перейдя по которой, он сможет привязать
+Telegram к системе биллинга, чтобы получать уведомления.</p>
+<img alt="_images/scrin11.png" src="_images/scrin11.png" />
+<img alt="_images/scrin7.png" src="_images/scrin7.png" />
+<img alt="_images/scrin8.png" src="_images/scrin8.png" />
+<img alt="_images/scrin12.png" src="_images/scrin12.png" />
+<p>После успешной привязки у клиента появится id телеграм-чата в специальном поле.</p>
+<img alt="_images/scrin10.png" src="_images/scrin10.png" />
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>Телеграм-бот, к которому осуществляется привязка, настраивается при
+развертке системы на сервере. Если вам нужно создать нового бота/переименовать текущего,
+то обратитесь в службу поддержки биллинга.</p>
+</div>
+</section>
+<section id="id6">
+<h4>Отчёт по объёму потребленных услуг<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
+<p>Пошаговая инструкция представлена на скриншоте:</p>
+<img alt="_images/scrin29.png" src="_images/scrin29.png" />
+</section>
+<section id="id7">
+<h4>Создание актов<a class="headerlink" href="#id7" title="Link to this heading"></a></h4>
+<p>Аналогично инструкции на скриншоте выше, за исключением шага №5. В данном случае
+там нужно будет выбрать действие «Создать акты». Далее вы попадёте на промежуточную страницу создания актов,
+где уже будут подставлен автоматически рекомендованный период, за который нужно сделать акт (с первого числа
+предыдущего месяца по последние число предыдущего месяца). При необходимости можно изменить эти значения.
+Далее нужно нажать кнопку «сохранить», после чего в разделе «акты» появятся созданные акты, а клиентам отправятся
+копии этих актов в Telegram.</p>
+</section>
+</section>
+<section id="id8">
+<h3>История операций<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>В этот раздел автоматически записываются операции,
+связанные с изменением балансов клиентов или блокировкой тарифов/допуслуг.
+Подробное описание всех полей этого объекта доступно в панели администратора
+по пути:</p>
+<blockquote>
+<div><p>Главная › Документация › Модели › billing.PaymentHistory</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>Внимание! Редактирование сохранённых операций может повлиять на данные в актах, отчётах по потреблённым услугам, а также на корректность оповещений клиентов.</p>
+</div>
+<section id="id9">
+<h4>Экспорт истории операций<a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
+<p>Рассмотрим конкретный кейс.
+Стоит задача - предоставить клиенту отчёт по всем изменениям его баланса за последний месяц.
+Клиент хочет знать, когда именно и за что именно списывались деньги с его счёта в течении месяца, а также когда именно
+и сколько денег поступало на его баланс.</p>
+<p>Переходим в Главная › Биллинг › История операций</p>
+<ol class="arabic simple">
+<li><p>Находим конкретного клиента</p></li>
+<li><p>Указываем диапазон дат</p></li>
+<li><p>Выбираем все найденные объекты</p></li>
+<li><p>Выбираем действие «экспортировать выбранные объекты в Excel»</p></li>
+<li><p>Жмём кнопку «выполнить». Начнётся скачивание Excel файла с отчётом.</p></li>
+</ol>
+<img alt="_images/scrin30.png" src="_images/scrin30.png" />
+</section>
+</section>
+<section id="id10">
+<h3>Устройства<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<p>Этот раздел хранит в себе информацию о подключенных устройствах (как правило, камерах видеонаблюдения)
+Здесь хранится информация о том оплачен или нет тарифный план на устройстве.
+Подробное описание всех полей этого объекта доступно в панели администратора
+по пути:</p>
+<blockquote>
+<div><p>Главная › Документация › Модели › billing.Device</p>
+</div></blockquote>
+</section>
+<section id="id11">
+<h3>Допуслуги<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<p>Этот раздел хранит в себе информацию о списке допуслуг,
+доступных для подключения на устройства.
+Подробное описание всех полей этого объекта доступно в панели администратора
+по пути:</p>
+<blockquote>
+<div><p>Главная › Документация › Модели › billing.Option</p>
+</div></blockquote>
+</section>
+<section id="id12">
+<h3>Подкл. допуслуги<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<p>Этот раздел хранит в себе информацию о подключенных дополнительных услугах на конкретные
+устройства, а также оплачены ли допуслуги на конкретном устройстве на текущий момент.
+Подробное описание всех полей этого объекта доступно в панели администратора
+по пути:</p>
+<blockquote>
+<div><p>Главная › Документация › Модели › billing.DeviceOption</p>
+</div></blockquote>
+</section>
+<section id="id13">
+<h3>Тарифы<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<p>Этот раздел хранит в себе информацию о списке тарифов видеонаблюдения,
+доступных для подключения на устройства.
+Подробное описание всех полей этого объекта доступно в панели администратора
+по пути:</p>
+<blockquote>
+<div><p>Главная › Документация › Модели › billing.Tariff</p>
+</div></blockquote>
+</section>
+<section id="id14">
+<h3>Группы Тарифов<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<p>Этот раздел хранит в себе информацию о списке групп тарифов.
+Каждый тариф может быть причислен к одной из групп тарифов.
+Каждая группа тарифов может быть назначена одному или нескольким клиентам.
+Это делается для того чтобы клиент в своём личном кабинете мог видеть только
+тарифы из своей группы + бесплатный тариф.
+Подробное описание всех полей этого объекта доступно в панели администратора
+по пути:</p>
+<blockquote>
+<div><p>Главная › Документация › Модели › billing.GroupOfTariff</p>
+</div></blockquote>
+</section>
+<section id="id15">
+<h3>Настройки<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<p>Этот раздел хранит в себе информацию о настройках системы.
+Подробное описание всех полей этого объекта доступно в панели администратора
+по пути:</p>
+<blockquote>
+<div><p>Главная › Документация › Модели › billing.Settings</p>
+</div></blockquote>
+</section>
+<section id="id16">
+<h3>Акты<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<p>В этом разделе хранятся акты об оказании услуг, автоматически генерирующиеся 1
+числа каждого месяца и рассылающиеся клиентам, в карточке которых указана такая необходимость.
+Реквизиты Исполнителя берутся из раздела Реквизиты, а реквизиты Заказчиков – из карточек клиентов.
+В случае необходимости можно вручную сгенерировать акты, нажав на кнопку «Добавить акт»
+в правом верхнем углу, а также в разделе «Клиенты». Вручную сгенерированные
+акты будут автоматически отправлены клиентам.
+Описание всех полей этого объекта доступно в панели администратора
+по пути:</p>
+<blockquote>
+<div><p>Главная › Документация › Модели › billing.Act</p>
+</div></blockquote>
+</section>
+<section id="id17">
+<h3>Наши реквизиты<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<p>В этом разделе хранятся реквизиты организации, которая оказывает
+услуги. Используется для подстановки в шаблон при создании актов.
+Описание всех полей этого объекта доступно в панели администратора
+по пути:</p>
+<blockquote>
+<div><p>Главная › Документация › Модели › billing.Requisites</p>
+</div></blockquote>
+</section>
+</section>
+<section id="id18">
+<h2>Создание объектов<a class="headerlink" href="#id18" title="Link to this heading"></a></h2>
+<p>Рассмотрим процесс создания объектов на примере объекта «Допуслуга».
+Все остальные объекты создаются аналогичным образом.</p>
+<p>В левом меню выберем интересующий нас тип объекта и кликнем по нему.</p>
+<img alt="_images/scrin15.png" src="_images/scrin15.png" />
+<p>После чего мы попадём на страницу списка созданных допуслуг.
+На ней, в правом верхнем углу, нажимаем кнопку «добавить допуслуга».</p>
+<img alt="_images/scrin16.png" src="_images/scrin16.png" />
+<p>Далее появится форма. Заполняем поля и жмём кнопку «сохранить».
+Поля, выделенные более жирным шрифтом, являются обязательными для заполнения.
+Поля, выделенные менее жирным шрифтом, являются необязательными для заполнения.</p>
+<img alt="_images/scrin17.png" src="_images/scrin17.png" />
+<p>Далее система попросит подтвердить создание нового объекта, нажав кнопку «Да, я уверен» либо
+вернуться на предыдущий шаг, нажав «No, continue to edit». Нажимаем «Да, я уверен».</p>
+<img alt="_images/scrin18.png" src="_images/scrin18.png" />
+<p>Готово! Вы будете возвращены на страницу списка объектов, появится оповещение об успешном добавлении объекта,
+и вы сможете увидеть новый объект в списке.</p>
+<img alt="_images/scrin19.png" src="_images/scrin19.png" />
+</section>
+<section id="id19">
+<h2>Редактирование объектов<a class="headerlink" href="#id19" title="Link to this heading"></a></h2>
+<p>Рассмотрим процесс редактирования объектов на примере объекта «Тариф».
+Все остальные объекты редактируются аналогичным образом.</p>
+<p>В левом меню выберем интересующий нас тип объекта и кликнем по нему.</p>
+<img alt="_images/scrin21.png" src="_images/scrin21.png" />
+<p>После чего мы попадём на страницу списка объектов.
+Кликните по значению первой колонки интересующего Вас объекта.
+Обычно это ID.</p>
+<img alt="_images/scrin25.png" src="_images/scrin25.png" />
+<p>Далее появится форма. Изменим стоимость тарифа и название и нажмем кнопку «сохранить».</p>
+<img alt="_images/scrin22.png" src="_images/scrin22.png" />
+<p>Далее система попросит подтвердить изменение объекта, нажав кнопку «Да, я уверен», либо
+вернуться на предыдущий шаг, нажав «No, continue to edit». Нажимаем «Да, я уверен».</p>
+<img alt="_images/scrin23.png" src="_images/scrin23.png" />
+<p>Готово! Вы будете возвращены на страницу списка объектов, появится оповещение об успешном изменении объекта,
+и вы сможете увидеть обновленный объект в списке.</p>
+<img alt="_images/scrin24.png" src="_images/scrin24.png" />
+</section>
+<section id="id20">
+<h2>Удаление объектов<a class="headerlink" href="#id20" title="Link to this heading"></a></h2>
+<p>Рассмотрим процесс удаления объектов на примере объекта «Допуслуга».
+Все остальные объекты удаляются аналогичным образом.</p>
+<p>В левом меню выберем интересующий нас тип объекта и кликнем по нему.</p>
+<img alt="_images/scrin26.png" src="_images/scrin26.png" />
+<p>Проставьте галочки рядом с объектами, которые требуется удалить, а также
+в разделе «действия» выберите «Удалить выбранные допуслуги» и нажмите кнопку «выполнить».</p>
+<img alt="_images/scrin27.png" src="_images/scrin27.png" />
+<p>Далее система попросит подтвердить удаление объекта, нажав кнопку «Да, я уверен», либо
+вернуться на предыдущий шаг, нажав «Нет, вернуться к выбору». Так же будет предоставлен список объектов, связанных с удаляемым объектом,
+которые тоже удалятся при выполнении этой операции.
+Нажимаем «Да, я уверен».</p>
+<img alt="_images/scrin28.png" src="_images/scrin28.png" />
+<p>Готово! Вы будете возвращены на страницу списка объектов, появится оповещение об успешном удалении объекта.</p>
+</section>
+<section id="id21">
+<h2>Пользователи и Группы<a class="headerlink" href="#id21" title="Link to this heading"></a></h2>
+<p>В этом разделе вы можете создавать группы пользователей/пользователей с определенным набором прав доступа.
+Каждое право доступа из выпадающего списка представлено в формате
+&lt;ИМЯ DJANGO ПРИЛОЖЕНИЯ &gt; | &lt;ИМЯ МОДЕЛИ ЭТОГО DJANGO-ПРИЛОЖЕНИЯ(ТИП ОБЪЕКТА)&gt; | &lt;ПРАВО ДОСТУПА&gt; &lt;ИМЯ МОДЕЛИ&gt;</p>
+<p>DJANGO-ПРИЛОЖЕНИЕ- это «Биллинг», «Пользователи и группы» и «API-KEY-PERMISSIONS» в левом меню админ-панели, а МОДЕЛЬ(ТИП ОБЪЕКТА) -
+это, например, «Клиенты» или «История операций» в приложении «Биллинг» в том же левом меню.</p>
+<p>Вы можете причислить пользователя к одному или нескольким группам пользователей, после чего к нему применятся все права из этих групп.
+Вы так же можете назначить индивидуально пользователю права дополнительно.</p>
+<dl>
+<dt>Право доступа бывает одного из 4-ёх видов:</dt><dd><div class="line-block">
+<div class="line"><strong>can_add</strong> - разрешить пользователю создавать объекты этого типа</div>
+<div class="line"><strong>can_change</strong> - разрешить пользователю изменять объекты этого типа</div>
+<div class="line"><strong>can_delete</strong> - разрешить пользователю удалять объекты этого типа</div>
+<div class="line"><strong>can_view</strong> - разрешить пользователю просматривать объекты этого типа</div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>если вы выдаёте право can_change для объекта, то независимо от того,
+назначено ли пользователю право can_view, пользователь сможет просматривать этот объект, включая историю изменения этого объекта.</p>
+</div>
+<p>Вы можете назначить сразу все 4 вида доступа на тот или иной тип объекта или не назначить ни один из них.</p>
+<section id="id22">
+<h3>Описание прав доступа<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
+<p><strong>Пользователи и группы | группа | Can {вид доступа} group</strong>
+Права доступа к группам пользователей.</p>
+<p><strong>Пользователи и группы | пользователь | Can {вид доступа} user</strong>
+Права доступа к пользователям.</p>
+<p><strong>Биллинг | Клиент | Can {вид доступа} Клиент</strong>
+Права доступа к клиентам. Стоит отметить, что доступ к просмотру истории изменения объекта
+«Клиент»/просмотру и восстановлению состояния из истории изменения объекта «клиент», регулируется выдачей прав <em>Биллинг | Клиент | Can view/change Клиент</em>
+соответственно. Т.е если пользователю выдано право <em>Биллинг | Клиент | Can view Клиент</em>, то ему будет доступен так же и просмотр истории изменений
+этих объектов. Если пользователю выдано право <em>Биллинг | Клиент | Can change Клиент</em>, то ему будет доступен так же и просмотр истории изменений
+этих объектов + восстановление этих объектов из истории.</p>
+<p><strong>Биллинг | Устройство | Can {вид доступа} Девайс</strong>
+Права доступа к устройствам.</p>
+<p><strong>Биллинг | Подкл. допуслугу | Can {вид доступа} Опция девайса</strong>
+Права доступа к подключенным допуслугам.</p>
+<p><strong>Биллинг | Группа тарифов | Can {вид доступа} Группа тарифов</strong>
+Права доступа к подключенным группам тарифов.</p>
+<p><strong>Биллинг | Допуслуга | Can {вид доступа} Опция</strong>
+Права доступа к списку допуслуг.</p>
+<p><strong>Биллинг | История операции | Can {вид доступа} Движение баланса</strong>
+Права доступа к истории операций.</p>
+<p><strong>Биллинг | Настройки | Can {вид доступа} Настройки</strong>
+Права доступа к настройкам.</p>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>В системе может быть один и только один объект «Настройки». Он создаётся автоматически при развертке системы. Его удаление может
+привести к сбою системы. Так что имеет смысл выдавать право только на редактирование/просмотр или не выдавать
+вовсе никаких доступов к этому типу объектов.</p>
+</div>
+<p><strong>Биллинг | Тариф | Can {вид доступа} Тариф</strong>
+Права доступа к тарифам.</p>
+<p><strong>API Key Permissions | API key | Can {вид доступа} API key</strong>
+Права доступа к API keys (API-ключи).</p>
+<p>Так же существует несколько дополнительных разрешений, которые не вписываются в viev/change/delete/add доступы:</p>
+<p><strong>Биллинг | custom permissons | Может изменять баланс</strong> - разрешить пользователю доступ к действию «изменить баланс» на странице списка
+Клиентов (дополнительно требует доступа <em>Биллинг | Тариф | Can view/change Клиент</em>).</p>
+<p><strong>Биллинг | custom permissons | Может получать отчёт по потребленным услугам</strong> - разрешить пользователю доступ к действию «Получить отчёт по объему потребленных услуг в Excel» на странице списка
+Клиентов (дополнительно требует доступа <em>Биллинг | Тариф | Can view/change Клиент</em>).</p>
+<p><strong>Биллинг | custom permissons | Может создавать акты через «Действия» в разделе «Клиенты»</strong> - разрешить пользователю доступ к действию «Создать акты» на странице списка
+Клиентов (дополнительно требует доступа <em>Биллинг | Тариф | Can view/change Клиент</em>).</p>
+<p><strong>Биллинг | custom permissons | Может выгружать историю операций в Excel</strong> - разрешить пользователю доступ к действию
+«Экспортировать выбранные объекты в Excel» на странице истории операций (дополнительно требует доступа <em>Биллинг | История операции | Can viev/change Движение баланса</em>).</p>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>Все остальные разрешения, которые вы можете наблюдать в выпадающем списке при назначении прав, не имеют значения в текущей конфигурации,
+рекомендуется не назначать.</p>
+</div>
+</section>
+<section id="id23">
+<h3>Пользователи<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
+<p><strong>Карточка пользователя</strong></p>
+<p>Форма, открывающаяся при редактировании пользователя, содержит несколько разделов:</p>
+<p>Персональная информация - указываются персональные реквизиты.</p>
+<p>Права доступа - выдаются необходимые <a class="reference external" href="./admin-panel.html#id3">права доступа</a></p>
+<p>Важные даты - поля заполняются системой автоматически. Обычно их не имеет смысла редактировать.</p>
+</section>
+<section id="id25">
+<h3>Пояснения по правам пользователя в биллинге<a class="headerlink" href="#id25" title="Link to this heading"></a></h3>
+<p>Работа в административной панели биллинга требует ответственного подхода, поскольку в ней можно
+умышленно либо по непониманию совершить действия, нарушающие выстроенную систему тарифов и балансов клиентов.
+Доступ к административной панели должен быть только у ответственных и обученных сотрудников.
+Для упрощения работы в системе заранее настроены группы пользователей с различными уровнями прав:</p>
+<p><strong>Администраторы</strong>.
+Максимальный уровень прав, исключающий критические.
+Включает настройку тарифной политики и редактирование истории операций.
+Этот уровень прав должен быть максимум у нескольких человек, а может быть только у одного.
+Настоятельно рекомендуется даже старшему администратору работать под этими правами,
+а не использовать статус суперпользователя.</p>
+<p><strong>Менеджеры</strong>. Уровень прав, позволяющий осуществлять работу по полноценному сопровождению клиентов:
+управление балансами, изменение клиентских тарифов и услуг, просмотр истории операций и прочее.
+Если какому-то сотруднику необходим расширенный уровень прав,
+то правильнее добавить отдельные необходимые права конкретному сотруднику, находящемуся в группе «Менеджеры».</p>
+<p><strong>Кассиры</strong>. Единственная разрешенные функция таких сотрудников –
+изменение баланса клиента и просмотр информации о клиентах.</p>
+</section>
+</section>
+<section id="api-key-permissions-api-keys">
+<h2>API KEY PERMISSIONS -&gt; API Keys<a class="headerlink" href="#api-key-permissions-api-keys" title="Link to this heading"></a></h2>
+<p>Этот раздел служит для управления ключами от HTTP API системы.
+При выпуске нового ключа, он полностью отобразится только 1 раз
+во всплывающем уведомлении, затем его невозможно будет посмотреть
+в админ-панели. Так что рекомендуется сохранить его куда-либо
+отдельно сразу после создания.</p>
+<p><strong>Описания полей</strong></p>
+<p>Name - имя ключа, чтобы было понятно для кого он и зачем.</p>
+<p>Revorked - проставьте галочку чтобы отозвать ключ в любой момент, сделав его невалидным.</p>
+<p>Eperies - дата до которой ключ будет действителен, если не указать ничего, то он будет действовать вечно, пока вы его не отзовете вручную или не удалите.</p>
+<p>Prefix - малая часть ключа, которая будет видна в административной панели после создания.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Нижняя область">
+        <a href="tarification.html" class="btn btn-neutral float-left" title="Система тарификации" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="HTTP API" accesskey="n" rel="next">Следующая <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Авторские права 2024, ООО &#34;ИНРЕВ&#34;, группа компаний &#34;ОПТИМА-ВИДЕО&#34;. </p>
+  </div>
+
+  Собрано при помощи <a href="https://www.sphinx-doc.org/">Sphinx</a> с использованием
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">темы,</a>
+    предоставленной <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
